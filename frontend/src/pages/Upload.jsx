@@ -66,10 +66,7 @@ const Upload = () => {
       formData.append('numQuestions', numQuestions);
       formData.append('topics', topics);
 
-      // Backend URL (assumes running locally on 5000)
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      
-      const response = await axios.post(`${API_URL}/api/generate-quiz`, formData, {
+      const response = await axios.post('/api/generate-quiz', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
@@ -96,7 +93,14 @@ const Upload = () => {
     } catch (error) {
       console.error(error);
       setStatus('error');
-      setErrorMsg(error.response?.data?.error || error.message || 'An error occurred during generation.');
+      
+      const errorText = error.response?.data?.error || error.response?.data || error.message || '';
+      
+      if (typeof errorText === 'string' && (errorText.includes('FUNCTION_INVOCATION_FAILED') || errorText.includes('500'))) {
+        setErrorMsg('Server is temporarily unavailable. Please try again later.');
+      } else {
+        setErrorMsg(error.response?.data?.error || error.message || 'An error occurred during generation.');
+      }
     }
   };
 
