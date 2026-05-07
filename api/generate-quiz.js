@@ -55,7 +55,7 @@ export default async function handler(req, res) {
 
     // 2. Parse the document (PDF, DOCX, TXT)
     const extractedText = await parseDocument(file);
-    
+
     if (!extractedText || extractedText.trim() === '') {
       return res.status(400).json({ error: 'Could not extract text from the document' });
     }
@@ -94,7 +94,7 @@ Provide ONLY the JSON output, without markdown blocks or any other text.
 
     // 4. Generate the quiz using Gemini 1.5 Flash (as requested)
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -102,7 +102,7 @@ Provide ONLY the JSON output, without markdown blocks or any other text.
     });
 
     const outputText = response.text;
-    
+
     let quizData;
     try {
       quizData = JSON.parse(outputText);
