@@ -17,6 +17,12 @@ app.use(express.json());
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+app.get('/', (req, res) => {
+  res.json({
+    status: 'Backend Running'
+  });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'QuizForge AI Backend is running' });
 });
@@ -56,6 +62,4 @@ app.post('/api/generate-quiz', upload.single('document'), async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+export default app;
