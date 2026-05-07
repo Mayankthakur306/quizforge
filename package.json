@@ -1,0 +1,18 @@
+{
+  "name": "quizforge-ai",
+  "version": "1.0.0",
+  "description": "QuizForge AI - Vercel Serverless Backend",
+  "main": "api/generate-quiz.js",
+  "type": "module",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build"
+  },
+  "dependencies": {
+    "@google/genai": "latest",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "mammoth": "^1.8.0",
+    "multer": "^1.4.5-lts.1",
+    "pdf-parse": "^1.1.1"
+  }
+}
